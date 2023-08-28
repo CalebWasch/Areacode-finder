@@ -50,7 +50,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         getAreaCode();
     }
     public static void getAreaCode(){
-        String file = "/Users/calebwaschkowski/eclipse-workspace/Zipcode Finder/src/areacodesNew2.csv";
+        String file = "/Users/calebwaschkowski/eclipse-workspace/Areacode Finder/src/areacodesNew2.csv";
         //String file = "/Users/Suzanne Waschkowski/Desktop/areacodesNew2.csv";
         String enteredZipCode = USER_TEXT.getText();
         BufferedReader reader = null;
