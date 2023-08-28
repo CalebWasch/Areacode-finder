@@ -56,17 +56,18 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         BufferedReader reader = null;
         String line;
         try{
+            outputLabel.setText("Output");
             reader = new BufferedReader(new FileReader(file));
             while((line = reader.readLine()) != null){
                 String[] row = line.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)");
                 for(String index : row) {
-                    //System.out.printf("%-10s", index);
-                    if(index.equals(enteredZipCode)){
+                    //System.out.printf("%-10s", index); // this prints all the rows
+                    if (index.equals(enteredZipCode)) {
                         System.out.println(line);
                         outputLabel.setText(line);
-                        //System.out.println(index);
                     }
                 }
+                if(outputLabel.getText().equals("Output")) {outputLabel.setText("Area code not found");}
             }
         }catch(Exception d){
             d.printStackTrace();
