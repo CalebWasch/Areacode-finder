@@ -40,9 +40,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         FRAME.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         FRAME.setTitle("Area code Searcher");
         //FRAME.addKeyListener(this);
-        // Debugging statements
-        System.out.println("Added title");
-        System.out.println("Added PANEL and BorderLayout");
+
     }
     @Override
     public void actionPerformed(ActionEvent e){
