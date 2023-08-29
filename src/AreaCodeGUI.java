@@ -1,11 +1,18 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+
 public class AreaCodeGUI implements ActionListener, KeyListener {
     public JFrame FRAME;// Allows the use of the MyFrame object throughout the class
     public JPanel PANEL = new JPanel();
@@ -15,6 +22,9 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
     public AreaCodeGUI() {
         // Area Code Title
         userlabel.setBounds(10,20,165,25);
+        Color userColor = new Color(255,255,255);
+        userlabel.setForeground(userColor);
+
         // User text field
         USER_TEXT.setBounds(100,20,165,25);
         USER_TEXT.addKeyListener(this);
@@ -24,6 +34,23 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         button.addActionListener(this);
         // Output label
         outputLabel.setBounds(8,-35,500,200);
+        Color outputColor = new Color(255,255,255);
+        outputLabel.setForeground(outputColor);
+        // Image label
+        BufferedImage myPicture = null;
+        try {
+            myPicture = ImageIO.read(new File("/Users/calebwaschkowski/eclipse-workspace/Areacode finder/src/AreaCodeIcon.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        picLabel.setBounds(150,75,100,100);
+
+
+
+
+
         // setup for PANEL
         PANEL.setVisible(true);
         PANEL.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
@@ -32,10 +59,13 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         PANEL.add(USER_TEXT);
         PANEL.add(button);
         PANEL.add(outputLabel);
+        PANEL.add(picLabel);
+        Color color = new Color(187, 99, 219);
+        PANEL.setBackground(color);
         // Sets up the MyFrame
         FRAME = new JFrame();
         FRAME.add(PANEL, BorderLayout.CENTER);
-        FRAME.setSize(500, 200);
+        FRAME.setSize(315, 210);
         FRAME.setVisible(true);
         FRAME.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         FRAME.setTitle("Area code Searcher");
