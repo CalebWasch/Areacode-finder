@@ -65,6 +65,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
                     if (index.equals(enteredZipCode)) {
                         System.out.println(line);
                         outputLabel.setText(line);
+                        USER_TEXT.setText("");
                     }
                 }
                 if(outputLabel.getText().equals("Output")) {outputLabel.setText("Area code not found");}
