@@ -63,7 +63,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
                 for(String index : row) {
                     //System.out.printf("%-10s", index); // this prints all the rows
                     if (index.equals(enteredZipCode)) {
-                        System.out.println(line);
+                        //System.out.println(line);
                         outputLabel.setText(line);
                         USER_TEXT.setText("");
                     }
@@ -85,23 +85,18 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
     }
     @Override
     public void keyTyped(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER)
-        {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER) {
             getAreaCode();
-            System.out.println("Pressed");
         }
 
     }
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER)
-        {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER) {
             getAreaCode();
-            System.out.println("Pressed");
         }
     }
     @Override
     public void keyReleased(KeyEvent e) {
-        System.out.println("Key Released");
     }
 }
