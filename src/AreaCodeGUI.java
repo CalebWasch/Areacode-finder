@@ -1,3 +1,9 @@
+/**
+ * Area Code finder application - Caleb Waschkowski
+ * - This application searches for area codes based on input form the use.
+ * - Feel free to download the code and make changes or use for your own projects.
+ * - Color's used were suggested by my UI expert Fiancé.
+ */
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -6,8 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -32,6 +36,8 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         JButton button = new JButton("Look Up");
         button.setBounds(8,100,100,50);
         button.addActionListener(this);
+        Color buttonColor = new Color(11, 23, 100);
+        button.setForeground(buttonColor);
         // Output label
         outputLabel.setBounds(8,-35,500,200);
         Color outputColor = new Color(255,255,255);
@@ -41,16 +47,10 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         try {
             myPicture = ImageIO.read(new File("/Users/calebwaschkowski/eclipse-workspace/Areacode finder/src/AreaCodeIcon.png"));
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+            e.printStackTrace();
+        }   
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
         picLabel.setBounds(150,75,100,100);
-
-
-
-
-
         // setup for PANEL
         PANEL.setVisible(true);
         PANEL.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
@@ -60,7 +60,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         PANEL.add(button);
         PANEL.add(outputLabel);
         PANEL.add(picLabel);
-        Color color = new Color(187, 99, 219);
+        Color color = new Color(11, 28, 74);
         PANEL.setBackground(color);
         // Sets up the MyFrame
         FRAME = new JFrame();
