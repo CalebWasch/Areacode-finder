@@ -7,15 +7,5 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("Zipcode finder application");
         new AreaCodeGUI();
-
-
-        List<Path> result = AreaCodeGUI.findByFileName(".", "areacodesNew2.csv");
-        System.out.println(result.get(0));
-        //result.forEach(System.out::println);
-
-
-
-
-
     }
 }
