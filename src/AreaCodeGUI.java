@@ -24,11 +24,9 @@ import java.util.List;
 import java.nio.file.Paths;
 
 public class AreaCodeGUI implements ActionListener, KeyListener {
-    public JFrame FRAME;// Allows the use of the MyFrame object throughout the class
-    public JPanel PANEL = new JPanel();
-    public static JTextField USER_TEXT = new JTextField(20);
-    public static JLabel userlabel = new JLabel("Area Code");
-    public static JLabel outputLabel = new JLabel("Output");
+    private static final JTextField USER_TEXT = new JTextField(20);
+    private static final JLabel userlabel = new JLabel("Area Code");
+    private static final JLabel outputLabel = new JLabel("Output");
     public AreaCodeGUI() {
         // Area Code Title
         userlabel.setBounds(10,20,165,25);
@@ -59,25 +57,27 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         }   
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
         picLabel.setBounds(150,75,100,100);
-        // setup for PANEL
-        PANEL.setVisible(true);
-        PANEL.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        PANEL.setLayout(null);
-        PANEL.add(userlabel);
-        PANEL.add(USER_TEXT);
-        PANEL.add(button);
-        PANEL.add(outputLabel);
-        PANEL.add(picLabel);
+        // setup for panel
+        JPanel panel = new JPanel();
+        panel.setVisible(true);
+        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        panel.setLayout(null);
+        panel.add(userlabel);
+        panel.add(USER_TEXT);
+        panel.add(button);
+        panel.add(outputLabel);
+        panel.add(picLabel);
         Color color = new Color(11, 28, 74);
-        PANEL.setBackground(color);
+        panel.setBackground(color);
         // Sets up the MyFrame
-        FRAME = new JFrame();
-        FRAME.add(PANEL, BorderLayout.CENTER);
-        FRAME.setSize(315, 210);
-        FRAME.setVisible(true);
-        FRAME.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        FRAME.setTitle("Area code Searcher");
-        //FRAME.addKeyListener(this);
+        // Allows the use of the MyFrame object throughout the class
+        JFrame frame = new JFrame();
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setSize(315, 210);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setTitle("Area code Searcher");
+        //frame.addKeyListener(this);
 
     }
     @Override
@@ -143,14 +143,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
     }
     @Override
     public void keyTyped(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-            try {
-                getAreaCode();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-
+        // Not Used
     }
     @Override
     public void keyPressed(KeyEvent e) {
@@ -161,8 +154,12 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
                 throw new RuntimeException(ex);
             }
         }
+        else if(e.getKeyCode() == KeyEvent.VK_DELETE) {
+            USER_TEXT.setText("");
+        }
     }
     @Override
     public void keyReleased(KeyEvent e) {
+        // Not Used
     }
 }
