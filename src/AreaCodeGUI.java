@@ -16,6 +16,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.List;
+import java.nio.file.Paths;
 
 public class AreaCodeGUI implements ActionListener, KeyListener {
     public JFrame FRAME;// Allows the use of the MyFrame object throughout the class
@@ -45,7 +51,9 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         // Image label
         BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File("/Users/calebwaschkowski/eclipse-workspace/Areacode finder/src/AreaCodeIcon.png"));
+            List<Path> result = findByFileName(".", "AreaCodeIcon.png");
+            String pathname = String.valueOf(result.get(0));
+            myPicture = ImageIO.read(new File(pathname));
         } catch (IOException e) {
             e.printStackTrace();
         }   
@@ -75,11 +83,15 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e){
         System.out.println("Clicked");
-        getAreaCode();
+        try {
+            getAreaCode();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
-    public static void getAreaCode(){
-        String file = "/Users/calebwaschkowski/eclipse-workspace/Areacode Finder/src/areacodesNew2.csv";
-        //String file = "/Users/Suzanne Waschkowski/Desktop/areacodesNew2.csv";
+    public static void getAreaCode() throws IOException {
+        List<Path> result = findByFileName(".", "areacodesNew2.csv");
+        String file = String.valueOf(result.get(0));
         String enteredZipCode = USER_TEXT.getText();
         BufferedReader reader = null;
         String line;
@@ -111,17 +123,43 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
             }
         }
     }
+    // Finds file paths for the area code csv file. Allows a user to just need the file on their computer for the
+    // program to work.
+    public static List<Path> findByFileName(String pathString, String fileName)
+            throws IOException {
+
+        Path path = Paths.get(pathString);
+        System.out.println(path);
+        List<Path> result;
+        try (Stream<Path> pathStream = Files.find(path,
+                Integer.MAX_VALUE,
+                (p, basicFileAttributes) ->
+                        p.getFileName().toString().equalsIgnoreCase(fileName))
+        ) {
+            result = pathStream.collect(Collectors.toList());
+        }
+        return result;
+
+    }
     @Override
     public void keyTyped(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-            getAreaCode();
+            try {
+                getAreaCode();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
 
     }
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-            getAreaCode();
+            try {
+                getAreaCode();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
     @Override
