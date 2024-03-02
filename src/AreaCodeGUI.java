@@ -100,7 +100,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         }
     }
     public static void getAreaCode() throws IOException {
-        List<Path> result = findByFileName(".", "areacodesNew2.csv");
+        List<Path> result = findByFileName(".", "areacodes.csv");
         String file = String.valueOf(result.get(0));
         String enteredZipCode = USER_TEXT.getText();
         BufferedReader reader = null;
