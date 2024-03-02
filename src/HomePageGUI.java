@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+
 public class HomePageGUI implements ActionListener {
     private final JFrame frame = new JFrame();
     public HomePageGUI(){
@@ -37,11 +39,13 @@ public class HomePageGUI implements ActionListener {
         frame.setSize(500, 150);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setTitle("Area code Searcher");
+        frame.setTitle("Area Code Searcher");
+
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         new AreaCodeGUI();
         frame.dispose();
+
     }
 }

@@ -1,6 +1,6 @@
 /**
  * Area Code finder application - Caleb Waschkowski
- * - This application searches for area codes based on input form the use.
+ * - This application searches for area codes based on input form the user.
  * - Feel free to download the code and make changes or use for your own projects.
  * - Color's used were suggested by my UI expert Fiancé.
  */
@@ -54,7 +54,8 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
             myPicture = ImageIO.read(new File(pathname));
         } catch (IOException e) {
             e.printStackTrace();
-        }   
+        }
+        assert myPicture != null;
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
         picLabel.setBounds(150,75,100,100);
         // setup for panel
@@ -71,18 +72,27 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         panel.setBackground(color);
         // Sets up the MyFrame
         // Allows the use of the MyFrame object throughout the class
+        JFrame.setDefaultLookAndFeelDecorated(true);
         JFrame frame = new JFrame();
         frame.add(panel, BorderLayout.CENTER);
         frame.setSize(315, 210);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setTitle("Area code Searcher");
+        List<Path> logoResult = null;
+        try {
+            logoResult = findByFileName(".", "AreaCodeIcon.png");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String file = String.valueOf(logoResult.get(0));
+        ImageIcon logo = new ImageIcon(file);
+        frame.setIconImage(logo.getImage());
         //frame.addKeyListener(this);
 
     }
     @Override
     public void actionPerformed(ActionEvent e){
-        System.out.println("Clicked");
         try {
             getAreaCode();
         } catch (IOException ex) {
@@ -99,7 +109,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
             outputLabel.setText("Output");
             reader = new BufferedReader(new FileReader(file));
             while((line = reader.readLine()) != null){
-                String[] row = line.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)");
+                String[] row = line.split(","); // Removed (?=([^\"]*\"[^\"]*\")*[^\"]*$)
                 for(String index : row) {
                     //System.out.printf("%-10s", index); // this prints all the rows
                     if (index.equals(enteredZipCode)) {
@@ -127,9 +137,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
     // program to work.
     public static List<Path> findByFileName(String pathString, String fileName)
             throws IOException {
-
         Path path = Paths.get(pathString);
-        System.out.println(path);
         List<Path> result;
         try (Stream<Path> pathStream = Files.find(path,
                 Integer.MAX_VALUE,
