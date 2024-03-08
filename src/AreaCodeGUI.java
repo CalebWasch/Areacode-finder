@@ -1,6 +1,6 @@
 /**
  * Area Code finder application - Caleb Waschkowski
- * - This application searches for area codes based on input form the user.
+ * - This application searches for area codes based on input from the user.
  * - Feel free to download the code and make changes or use for your own projects.
  * - Color's used were suggested by my UI expert Fiancé.
  */
@@ -114,7 +114,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
                     //System.out.printf("%-10s", index); // this prints all the rows
                     if (index.equals(enteredZipCode)) {
                         //System.out.println(line);
-                        outputLabel.setText(line);
+                        outputLabel.setText(line);// comment
                         USER_TEXT.setText("");
                     }
                 }
