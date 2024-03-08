@@ -116,6 +116,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
                     if (index.equals(enteredZipCode)) {
                         //System.out.println(line);
                         outputLabel.setText(line);// comment
+                        System.out.println(line);
                         USER_TEXT.setText("");
                     }
                 }
