@@ -96,11 +96,11 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent e){
         try {
             getAreaCode();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
     }
-    public static void getAreaCode() throws IOException {
+    public static void getAreaCode() throws Exception {
         List<Path> result = findByFileName(".", "areacodes.csv");
         String file = String.valueOf(result.get(0));
         String enteredZipCode = USER_TEXT.getText();
@@ -118,14 +118,17 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
                         outputLabel.setText(line);// comment
                         System.out.println(line);
                         USER_TEXT.setText("");
+
                     }
+
                 }
-                if(outputLabel.getText().equals("Output")) {outputLabel.setText("Area code not found");}
+                if(outputLabel.getText().equals("Output")) {
+                    outputLabel.setText("Area code not found");
+
+                }
+
             }
-        }catch(Exception d){
-            //d.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
                 assert reader != null;
                 reader.close();
@@ -160,7 +163,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
                 getAreaCode();
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         }
