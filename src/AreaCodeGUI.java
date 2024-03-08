@@ -53,7 +53,8 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
             String pathname = String.valueOf(result.get(0));
             myPicture = ImageIO.read(new File(pathname));
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+
         }
         assert myPicture != null;
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
@@ -79,7 +80,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setTitle("Area code Searcher");
-        List<Path> logoResult = null;
+        List<Path> logoResult;
         try {
             logoResult = findByFileName(".", "AreaCodeIcon.png");
         } catch (IOException e) {
@@ -121,7 +122,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
                 if(outputLabel.getText().equals("Output")) {outputLabel.setText("Area code not found");}
             }
         }catch(Exception d){
-            d.printStackTrace();
+            //d.printStackTrace();
         }
         finally {
             try {
@@ -129,7 +130,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
                 reader.close();
             }
             catch(Exception d){
-                d.printStackTrace();
+                //d.printStackTrace();
             }
         }
     }
