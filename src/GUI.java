@@ -22,30 +22,28 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.List;
 import java.nio.file.Paths;
-
-public class AreaCodeGUI implements ActionListener, KeyListener {
+public class GUI implements ActionListener, KeyListener {
     private static final JTextField USER_TEXT = new JTextField(20);
-    private static final JLabel userlabel = new JLabel("Area Code");
-    private static final JLabel outputLabel = new JLabel("Output");
-    public AreaCodeGUI() {
+    private static final JLabel USER_LABEL = new JLabel("Area Code");
+    private static final JLabel OUTPUT_LABEL = new JLabel("Output");
+    public GUI() {
         // Area Code Title
-        userlabel.setBounds(10,20,165,25);
+        USER_LABEL.setBounds(10,20,165,25);
         Color userColor = new Color(255,255,255);
-        userlabel.setForeground(userColor);
-
+        USER_LABEL.setForeground(userColor);
         // User text field
         USER_TEXT.setBounds(100,20,165,25);
         USER_TEXT.addKeyListener(this);
         // Button
-        JButton button = new JButton("Look Up");
-        button.setBounds(8,100,100,50);
-        button.addActionListener(this);
+        JButton LookUpButton = new JButton("Look Up");
+        LookUpButton.setBounds(8,100,100,50);
+        LookUpButton.addActionListener(this);
         Color buttonColor = new Color(11, 23, 100);
-        button.setForeground(buttonColor);
+        LookUpButton.setForeground(buttonColor);
         // Output label
-        outputLabel.setBounds(8,-35,500,200);
+        OUTPUT_LABEL.setBounds(8,-35,500,200);
         Color outputColor = new Color(255,255,255);
-        outputLabel.setForeground(outputColor);
+        OUTPUT_LABEL.setForeground(outputColor);
         // Image label
         BufferedImage myPicture = null;
         try {
@@ -54,7 +52,6 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
             myPicture = ImageIO.read(new File(pathname));
         } catch (IOException e) {
             //e.printStackTrace();
-
         }
         assert myPicture != null;
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
@@ -64,10 +61,10 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         panel.setVisible(true);
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         panel.setLayout(null);
-        panel.add(userlabel);
+        panel.add(USER_LABEL);
         panel.add(USER_TEXT);
-        panel.add(button);
-        panel.add(outputLabel);
+        panel.add(LookUpButton);
+        panel.add(OUTPUT_LABEL);
         panel.add(picLabel);
         Color color = new Color(11, 28, 74);
         panel.setBackground(color);
@@ -107,7 +104,7 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         BufferedReader reader = null;
         String line;
         try{
-            outputLabel.setText("Output");
+            OUTPUT_LABEL.setText("Output");
             reader = new BufferedReader(new FileReader(file));
             while((line = reader.readLine()) != null){
                 String[] row = line.split(","); // Removed (?=([^\"]*\"[^\"]*\")*[^\"]*$)
@@ -115,18 +112,15 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
                     //System.out.printf("%-10s", index); // this prints all the rows
                     if (index.equals(enteredZipCode)) {
                         //System.out.println(line);
-                        outputLabel.setText(line);
+                        OUTPUT_LABEL.setText(line);
                         System.out.println(line);
                         USER_TEXT.setText("");
-
                     }
 
                 }
-                if(outputLabel.getText().equals("Output")) {
-                    outputLabel.setText("Area code not found");
-
+                if(OUTPUT_LABEL.getText().equals("Output")) {
+                    OUTPUT_LABEL.setText("Area code not found");
                 }
-
             }
         } finally {
             try {
@@ -152,12 +146,9 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
             result = pathStream.collect(Collectors.toList());
         }
         return result;
-
     }
     @Override
-    public void keyTyped(KeyEvent e) {
-        // Not Used
-    }
+    public void keyTyped(KeyEvent e) {}
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -172,7 +163,6 @@ public class AreaCodeGUI implements ActionListener, KeyListener {
         }
     }
     @Override
-    public void keyReleased(KeyEvent e) {
-        // Not Used
-    }
+    public void keyReleased(KeyEvent e) {}
+
 }

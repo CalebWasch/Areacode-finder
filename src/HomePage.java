@@ -2,11 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-
-public class HomePageGUI implements ActionListener {
+public class HomePage implements ActionListener {
     private final JFrame frame = new JFrame();
-    public HomePageGUI(){
+    public HomePage(){
         // Welcome label
         JLabel welcome = new JLabel("Welcome to Area Code Finder!");
         welcome.setBounds(135,20,250,25);
@@ -40,12 +38,10 @@ public class HomePageGUI implements ActionListener {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setTitle("Area Code Searcher");
-
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        new AreaCodeGUI();
+        new GUI();
         frame.dispose();
-
     }
 }
