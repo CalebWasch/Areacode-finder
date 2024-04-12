@@ -16,50 +16,6 @@ public class Areacode {
 
     }
 
-    public static void setLabelAndText(JLabel OUTPUT_LABEL,JTextField USER_TEXT) throws Exception {
-        OUTPUT_LABEL.setText("Output");
-        String enteredZipCode = USER_TEXT.getText();
-        String areacode = Areacode.getAreaCodeFromCSV(enteredZipCode);
-        OUTPUT_LABEL.setText(areacode);
-        USER_TEXT.setText("");
-    }
-
-    public static void getAreaCode(JLabel OUTPUT_LABEL, JTextField USER_TEXT) throws Exception {
-        List<Path> result = findByFileName(".", "areacodes.csv");
-        String file = String.valueOf(result.get(0));
-        String enteredZipCode = USER_TEXT.getText();
-        BufferedReader reader = null;
-        String line;
-        try{
-            OUTPUT_LABEL.setText("Output");
-            reader = new BufferedReader(new FileReader(file));
-            while((line = reader.readLine()) != null){
-                String[] row = line.split(","); // Removed (?=([^\"]*\"[^\"]*\")*[^\"]*$)
-                for(String index : row) {
-                    //System.out.printf("%-10s", index); // this prints all the rows
-                    if (index.equals(enteredZipCode)) {
-                        //System.out.println(line);
-                        OUTPUT_LABEL.setText(line);
-                        System.out.println(line);
-                        USER_TEXT.setText("");
-                    }
-
-                }
-                if(OUTPUT_LABEL.getText().equals("Output")) {
-                    OUTPUT_LABEL.setText("Area code not found");
-                }
-            }
-        } finally {
-            try {
-                assert reader != null;
-                reader.close();
-            }
-            catch(Exception d){
-                //d.printStackTrace();
-            }
-        }
-    }
-
     public static List<Path> findByFileName(String pathString, String fileName)
             throws IOException {
         Path path = Paths.get(pathString);
@@ -74,23 +30,16 @@ public class Areacode {
     public static String getAreaCodeFromCSV(String enteredZipCode) throws Exception {
         List<Path> result = findByFileName(".", "areacodes.csv");
         String file = String.valueOf(result.get(0));
-        //String enteredZipCode = USER_TEXT.getText();
         BufferedReader reader = null;
         String line;
         try{
-            //OUTPUT_LABEL.setText("Output");
             reader = new BufferedReader(new FileReader(file));
             while((line = reader.readLine()) != null){
-                String[] row = line.split(","); // Removed (?=([^\"]*\"[^\"]*\")*[^\"]*$)
+                String[] row = line.split(",");
                 for(String index : row) {
-                    //System.out.printf("%-10s", index); // this prints all the rows
                     if (index.equals(enteredZipCode)) {
-                        //System.out.println(line);
-                        //OUTPUT_LABEL.setText(line);
                         System.out.println(line);
                         return line;
-
-                        //USER_TEXT.setText("");
                     }
 
                 }
@@ -106,5 +55,36 @@ public class Areacode {
             }
         }
         return "Area Code not found";
+    }
+
+    public static void setLabelAndText(JLabel OUTPUT_LABEL,JTextField USER_TEXT) throws Exception {
+        OUTPUT_LABEL.setText("Output");
+        String enteredZipCode = USER_TEXT.getText();
+        String areacode = Areacode.getAreaCodeFromCSV(enteredZipCode);
+        areacode = getStringBeforeThirdComma(areacode);
+        OUTPUT_LABEL.setText(areacode);
+        USER_TEXT.setText("");
+    }
+    public static String getStringBeforeThirdComma(String input) {
+        int commaCount = 0;
+        int charCount = 0;
+        StringBuilder result = new StringBuilder();
+        for (char c : input.toCharArray()) {
+            if (c == ',') {
+                commaCount++;
+                if (commaCount == 3) {
+                    break;
+                }
+            }
+            if (charCount > 2 && c != ',') {
+                if (Character.isUpperCase(c)) {
+                    result.append(' ');
+                }
+                result.append(c);
+            } else {
+                charCount++;
+            }
+        }
+        return result.toString();
     }
 }
